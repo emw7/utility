@@ -1,0 +1,8 @@
+# https://bit.ly/3O7QOq8
+# docker build -t psql .
+
+FROM postgres:16.3-alpine3.20
+
+WORKDIR /tmp/psql
+
+ENTRYPOINT ["psql"]

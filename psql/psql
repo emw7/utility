@@ -1,0 +1,80 @@
+#!/usr/bin/env bash
+
+# For more information and licensing read more at https://github.com/emw7/utility/blob/main/psql/README.md
+
+# set -eE: exits in case of error.
+# set -u: error in case of missing variable.
+set -eEu
+
+trap cleanup EXIT 1 2 3 6 15
+
+DEFAULT_PSQL_VERSION=15
+
+PSQL_VERSION=${PSQL_VERSION-}
+
+DIR=$(dirname "$0")
+NAME="$(basename "$0")"
+
+if [ -z "${PSQL_VERSION}" ]; then
+    PSQL_VERSION=${NAME#psql}
+    if [ -z "${PSQL_VERSION}" ]; then
+        PSQL_VERSION=${DEFAULT_PSQL_VERSION}
+    fi
+fi
+
+function cleanup ()
+{
+    if [ -n "${WDIR-}" ]; then 
+        rm -fr $WDIR
+    fi
+}
+
+## this is set to false if there is -f among options:
+##  likely it could be set to empty only in case of 'from standard input' 
+##  (-f - or -f-); so allocation a pseudo-TTY (-t) is activate only if no 
+## -f is specified.
+DOCKER_TERMINAL=-t
+
+## copies file to temporary directoy (WDIR) that is then mounted as container volume.
+function prepareFiles ()
+{
+    local target
+    local next
+    next=f
+
+    while [ -n "${1-}" ] ; do
+        target=""
+        if [ "$1" == "-f" ] ; then
+            DOCKER_TERMINAL=""
+            next=t
+        elif [ "${1#-f}" != "$1" ]; then
+                DOCKER_TERMINAL=""
+                next=f
+                target="${1#-f}"
+        elif [ "$next" = "t" ]; then
+            next=f
+            target="$1"
+        if [ "${target}" != "" -a "${target}" != "-" ]; then
+                mkdir -p $WDIR/"$(dirname "$target")"
+                cp "$target" $WDIR/"$target"
+            fi
+        fi
+        shift
+    done
+}
+
+## temporary directory where are copied input sql files (see prepareFiles) and 
+##  then mounted as container volume. 
+WDIR=$(mktemp -d)
+
+prepareFiles "$@"
+
+if ! docker image inspect psql$PSQL_VERSION >/dev/null 2>&1 ; then
+    docker build -f "${DIR}/Dockerfile$PSQL_VERSION.psql" -t psql$PSQL_VERSION "${DIR}"
+fi
+
+if docker image inspect psql$PSQL_VERSION >/dev/null 2>&1 ; then
+    docker run -v $WDIR:/tmp/psql --net host --rm -i $DOCKER_TERMINAL psql$PSQL_VERSION "$@"
+else
+    echo "cannot run ${NAME}"
+fi
