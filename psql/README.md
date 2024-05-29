@@ -83,3 +83,8 @@ ls -l .../*psql*
   .../Dockerfile15.psql
   .../Dockerfile16.psql
 ```
+
+# Credits
+
+- [psql - PostgreSQL interactive terminal](https://www.postgresql.org/docs/current/app-psql.html)
+
