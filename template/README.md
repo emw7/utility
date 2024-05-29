@@ -6,9 +6,9 @@
 
 Copyright @@COPYRIGHT_YEAR@@ Enrico Maschietto <emw7.github.fraying845@simplelogin.com>
 
-## Licensing
+# Licensing
 
-psql is licensed under [Apache License 2.0](../LICENSE)
+@@PROJECT@@ is licensed under [Apache License 2.0](../LICENSE)
 
 You must consider all files present in @@PROJECT_REPO_OR_DIR@@ contains the following text:
 
@@ -31,3 +31,11 @@ limitations under the License.
 # ChangeLog
 
 [CHANGELOG](./CHANGELOG)
+
+# TODO
+
+- a
+
+# Credits
+
+- a
