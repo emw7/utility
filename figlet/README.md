@@ -1,6 +1,6 @@
 # figlet
 
-Creates a text banner.
+Runs [figlet](http://www.figlet.org/) (creates text banners) as a docker app.
 
 # Copyright
 
@@ -59,7 +59,7 @@ These are the steps to follow to do a  full installation:
 - Make both `figlet.sh` and `build-image.sh` files executable.  
 - Change directory into `/usr/local/share/figlet` and runs (ont-time step) `./build-image.sh` to create the figlet docker image. Such a image will be tagged as `figlet:<alpine version>`[^1] and `figlet:latest` in some cases{TODO}.
 
-## Minimal installtion
+## Minimal installation
 
 Minimal installation installs into the host only the `figlet.sh` given that the image is created either using `build-image.sh` from the source or manually by the user.
 
@@ -68,7 +68,7 @@ These are the steps to follow to do a minimal installation:
 - Make both `figlet.sh` file executable.  
 - From the source directory, runs `./build-image.sh` (ont-time step) to create the figlet docker image. That assumes that `build-image.sh` into the source directoy is executable.
 
-## Do not installat at all
+## Do not install at all
 
 figleg can be used directly from the source directory without coping anything into the host. Because of the [figlet architecture and design](#architecture-and-design) before running `figlet.sh` the first time it is needed to create the docker image by running `build-image.sh`.
 
@@ -94,3 +94,8 @@ Fonts can be downloaded from [figlet-fonts repository](https://github.com/xero/f
 - Use a configurable location for fonts directory.
 - Allow to specify image to use to figlet.sh.
 - What about removing build-image.sh and move the image creation in figlet.sh as psql does?
+
+# Credits
+
+- [figlet](http://www.figlet.org/)
+
