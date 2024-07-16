@@ -44,7 +44,7 @@ These are the prerequistes needed for installing figlet:
 
 # Installation
 
-The procedures described below in part depends on the [figlet architecture and desig](#architecture-and-design).
+The procedures described below in part depends on the [figlet architecture and design](#architecture-and-design).
 
 There are some options for installing figlet:
 1. Full installation.
@@ -57,7 +57,7 @@ These are the steps to follow to do a  full installation:
 - Copy `figlet.sh` file to `/usr/local/bin`.
 - Copy `build-image.sh` files and `figlet-fonts` directory to `/usr/local/share/figlet`.  
 - Make both `figlet.sh` and `build-image.sh` files executable.  
-- Change directory into `/usr/local/share/figlet` and runs (ont-time step) `./build-image.sh` to create the figlet docker image. Such a image will be tagged as `figlet:<alpine version>`[^1] and `figlet:latest` in some cases{TODO}.
+- Change directory into `/usr/local/share/figlet` and runs (one-time step) `./build-image.sh` to create the figlet docker image. Such a image will be tagged as `figlet:<alpine version>`[^1] and `figlet:latest` in some cases{TODO}.
 
 ## Minimal installation
 
@@ -66,7 +66,7 @@ Minimal installation installs into the host only the `figlet.sh` given that the 
 These are the steps to follow to do a minimal installation:
 - Copy `figlet.sh` file to `/usr/local/bin`.
 - Make both `figlet.sh` file executable.  
-- From the source directory, runs `./build-image.sh` (ont-time step) to create the figlet docker image. That assumes that `build-image.sh` into the source directoy is executable.
+- From the source directory, runs `./build-image.sh` (one-time step) to create the figlet docker image. That assumes that `build-image.sh` into the source directoy is executable.
 
 ## Do not install at all
 
